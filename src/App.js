@@ -28,14 +28,18 @@ class App extends Component {
   }
   updated = (e, ind) => {
     if(e.target.checked){
-      this.state.obj[ind].status=true
+      const updateObj=[...this.state.obj]
+      updateObj[ind].status=true
       this.setState({
-        ...this.state.obj
+        obj: updateObj
       })
     }else{
-      this.state.obj[ind].status=false
+      const updateObj=[...this.state.obj]
+
+      updateObj[ind].status=false
+    
       this.setState({
-        ...this.state.obj
+        obj:updateObj
       }) 
     }
   }
@@ -73,13 +77,17 @@ class App extends Component {
               </div>)
           }) 
         }
+        <div className='todoSelect'>
+          <h1>Selected Items</h1>
 {
           this.state.obj.map((val, index) => {
+
             if(val.status){
             return (
               <div key={index} className="todos1"> 
-                <div className="todo">
-                  <div className="left">   
+              
+                <div className="todo1">
+                  <div className="left1">   
                     <p>{val.inputItem}</p>
                   </div> 
                 </div>
@@ -87,6 +95,7 @@ class App extends Component {
               return null
           })
         }
+        </div>
       </div>
     ) 
   } 

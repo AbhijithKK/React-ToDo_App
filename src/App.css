@@ -88,6 +88,13 @@ h2 {
 button{
   border: none;
 }
+.app .todoSelect{
+  margin-top: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 .todos1 {
   display: flex;
   justify-content: center;
@@ -95,4 +102,28 @@ button{
   flex-direction: column;
   
   
+  
+}
+.app .todos1 .todo1 .left1 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.app .todos1 .todo1 {
+  margin-top: 0.8em;
+  width: 20em;
+  height: 2em;
+  background-color: rgb(66, 150, 139);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 6px;
+  padding: 5px;
+}
+.app .todos1 .todo1 .left1 p {
+  margin-left: 3px;
+  font-size: medium;
+  font-weight: 700;
+  font-style: oblique;
+  color: rgb(255, 255, 255);
 }
