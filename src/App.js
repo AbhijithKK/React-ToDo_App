@@ -3,28 +3,34 @@ import { Component } from 'react';
 import './App.css';
 
 class App extends Component {
+
   state = { obj: [],
     inputItem:'' }
   textValue = (event) => {
     this.setState({ [event.target.name]: event.target.value}) 
     }
+    
+    
   submitValue = () => {
     let newval = {
       inputItem:this.state.inputItem,
       status: null,
       id: Date.now()
     }
-    if(this.state.inputItem.trim()){
-    this.state.obj.push(newval)
-    this.setState({
-      obj: this.state.obj,
-      inputItem:''
-    })
-  }
+    if (this.state.inputItem.trim()) {
+      const updatedObj = [...this.state.obj, newval];
+      this.setState({
+        obj: updatedObj,
+        inputItem: ''
+      });
+  
+      localStorage.setItem('obj', JSON.stringify(updatedObj));
+    }
   }
   deleteItem = (ind) => {
     this.state.obj.splice(ind, 1)
     this.setState({obj:this.state.obj})
+    localStorage.setItem('obj', JSON.stringify(this.state.obj));
   }
   updated = (e, ind) => {
     if(e.target.checked){
@@ -33,6 +39,7 @@ class App extends Component {
       this.setState({
         obj: updateObj
       })
+      localStorage.setItem('obj', JSON.stringify(updateObj));
     }else{
       const updateObj=[...this.state.obj]
 
@@ -41,9 +48,17 @@ class App extends Component {
       this.setState({
         obj:updateObj
       }) 
+      localStorage.setItem('obj', JSON.stringify(updateObj));
     }
   }
-
+ 
+  componentDidMount() {
+    const storedObj = JSON.parse(localStorage.getItem('obj'));
+    if (storedObj !== null) {
+      this.setState({ obj: storedObj });
+    }
+  }
+  
   render() {
 
     return (
@@ -67,7 +82,7 @@ class App extends Component {
               <div key={index} className="todos">
                 <div className="todo">
                   <div className="left">
-                    <input onChange={(e) => this.updated(e, index)} type="checkbox" name="" id="" />
+                    <input onChange={(e) => this.updated(e, index)} type="checkbox" name="" id="" checked={val.status ? true:''} />
                     <p>{val.inputItem}</p>
                   </div>
                   <div className="right">
